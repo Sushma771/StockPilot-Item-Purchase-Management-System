@@ -1,0 +1,85 @@
+{
+  "info": {
+    "name": "StockPilot - Item & Purchase Management API",
+    "_postman_id": "2b8c6c31-6d2b-4b2c-a6c0-000000000001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "itemId", "value": "1" },
+    { "key": "purchaseId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/health" }
+    },
+    {
+      "name": "Items",
+      "item": [
+        { "name": "List Items", "request": { "method": "GET", "url": "{{baseUrl}}/items" } },
+        { "name": "Get Item", "request": { "method": "GET", "url": "{{baseUrl}}/items/{{itemId}}" } },
+        {
+          "name": "Create Item",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"name\":\"Keyboard\",\"purchase_date\":\"2026-10-07\",\"stock_available\":25,\"item_type_id\":1,\"active\":true}" },
+            "url": "{{baseUrl}}/items"
+          }
+        },
+        {
+          "name": "Update Item",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"name\":\"Keyboard Pro\",\"purchase_date\":\"2026-10-07\",\"stock_available\":30,\"item_type_id\":1,\"active\":true}" },
+            "url": "{{baseUrl}}/items/{{itemId}}"
+          }
+        },
+        { "name": "Toggle Item", "request": { "method": "PATCH", "url": "{{baseUrl}}/items/{{itemId}}/toggle" } },
+        { "name": "Delete Item", "request": { "method": "DELETE", "url": "{{baseUrl}}/items/{{itemId}}" } }
+      ]
+    },
+    {
+      "name": "Item Types",
+      "item": [
+        { "name": "List Types", "request": { "method": "GET", "url": "{{baseUrl}}/item-types" } },
+        {
+          "name": "Create Type",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"type_name\":\"Office Equipment\"}" },
+            "url": "{{baseUrl}}/item-types"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchases",
+      "item": [
+        { "name": "List Purchases", "request": { "method": "GET", "url": "{{baseUrl}}/purchases" } },
+        {
+          "name": "Create Purchase",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"purchase_date\":\"2026-10-07\",\"items\":[{\"item_id\":1,\"quantity\":2},{\"item_id\":2,\"quantity\":3}]}" },
+            "url": "{{baseUrl}}/purchases"
+          }
+        },
+        { "name": "Purchase Details", "request": { "method": "GET", "url": "{{baseUrl}}/purchases/{{purchaseId}}" } },
+        {
+          "name": "Update Purchase",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"purchase_date\":\"2026-10-07\",\"items\":[{\"item_id\":1,\"quantity\":4},{\"item_id\":2,\"quantity\":2}]}" },
+            "url": "{{baseUrl}}/purchases/{{purchaseId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
